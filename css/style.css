@@ -8,6 +8,7 @@
 
 /* 1. Design tokens -------------------------------------------------------- */
 :root {
+  --grad-text: linear-gradient(110deg, #38bdf8, #0ea5e9);
   --bg: #0a1220;
   --bg-alt: #0d1829;
   --card: rgba(255, 255, 255, 0.045);
@@ -29,6 +30,7 @@
   color-scheme: dark;
 }
 [data-theme="light"] {
+  --grad-text: linear-gradient(110deg, #0b6fc4, #0a5ca4);
   --bg: #f4f7fb;
   --bg-alt: #eaf0f8;
   --card: #ffffff;
@@ -161,7 +163,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
 .eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0.9rem; border-radius: 999px; border: 1px solid var(--border); background: var(--card); font-size: 0.82rem; font-weight: 500; color: var(--muted); margin-bottom: 1.2rem; }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 60%, transparent); animation: pulse 2.4s infinite; }
-.grad { background: linear-gradient(110deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.grad { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .role-line { font-family: var(--font-head); font-size: clamp(1.15rem, 2.4vw, 1.6rem); font-weight: 500; color: var(--accent); margin-bottom: 1.1rem; min-height: 2.2rem; }
 .caret { display: inline-block; width: 2px; height: 1.2em; margin-left: 4px; vertical-align: -0.2em; background: var(--accent-2); animation: blink 1s steps(1) infinite; }
 .lead { font-size: clamp(1.02rem, 1.5vw, 1.2rem); color: var(--muted); max-width: 40rem; }
@@ -419,7 +421,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* NEOM case study */
 .metric-bar { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin: 0 0 1.6rem; }
 .metric-bar li { padding: 1.1rem 1rem; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); text-align: center; }
-.metric-bar strong { display: block; font-family: var(--font-head); font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.1; background: linear-gradient(110deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.metric-bar strong { display: block; font-family: var(--font-head); font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.1; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .metric-bar span { font-size: 0.82rem; color: var(--muted); }
 .case-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 1.2rem; align-items: start; }
 .case-art { border-radius: 14px; border: 1px solid var(--border); background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 10%, transparent), color-mix(in srgb, var(--accent-2) 7%, transparent)); padding: 1rem; margin-bottom: 1.1rem; }
@@ -439,7 +441,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .proj-card h3 { font-size: 1.15rem; }
 .proj-card p { color: var(--muted); margin: 0 0 0.6rem; font-size: 0.94rem; }
 .proj-card .proj-km { margin: 0 0 0.4rem; }
-.proj-km strong { font-family: var(--font-head); font-size: clamp(2.2rem, 4vw, 3rem); line-height: 1; background: linear-gradient(110deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; margin-right: 0.2rem; }
+.proj-km strong { font-family: var(--font-head); font-size: clamp(2.2rem, 4vw, 3rem); line-height: 1; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; margin-right: 0.2rem; }
 .highlight-grid { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem 1.4rem; }
 .highlight-grid li { display: flex; gap: 0.7rem; align-items: flex-start; color: var(--muted); }
 .highlight-grid .ico { color: var(--green); margin-top: 0.25rem; }
@@ -462,3 +464,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .plat-row { grid-template-columns: 1fr; gap: 0.5rem; }
   .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* 15. Title line: stacked, no dangling separators ---------------------------------- */
+.title-line { display: grid; gap: 0.25rem; }
+.title-line .sep { display: none; }
+.title-line > span:not(.sep)::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 0.7rem; background: var(--accent-2); transform: rotate(45deg); vertical-align: middle; position: relative; top: -0.08em; }
