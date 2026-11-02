@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://qamarbim1-cm.github.io/sitemap.xml
