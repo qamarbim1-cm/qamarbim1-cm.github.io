@@ -266,6 +266,72 @@
     });
   }
 
+
+  /* ----------------- 11. Project pictures: missing-file fallback + viewer ----------------- */
+  // A picture that fails to load is hidden, so a visitor never sees a broken image icon.
+  document.addEventListener('error', function (e) {
+    var t = e.target;
+    if (!t || t.tagName !== 'IMG') return;
+    var holder = t.closest('.shot, .prog-tile');
+    if (holder) holder.classList.add('is-missing');
+  }, true);
+
+  var lb = $('#lightbox');
+  var lbImg = $('#lbImg');
+  var lbCap = $('#lbCap');
+  var lbList = [];
+  var lbIndex = 0;
+
+  function collectGroup(name) {
+    var list = [], seen = {};
+    $$('figure.shot[data-lightbox]').forEach(function (f) {
+      if (f.getAttribute('data-lightbox') !== name || f.classList.contains('is-missing')) return;
+      var img = f.querySelector('img');
+      if (!img) return;
+      var src = img.getAttribute('src');
+      if (seen[src]) return;
+      seen[src] = true;
+      list.push({ src: src, cap: f.getAttribute('data-caption') || '', redacted: f.classList.contains('redacted') });
+    });
+    return list;
+  }
+  function showImage(i) {
+    if (!lbList.length || !lbImg) return;
+    lbIndex = (i + lbList.length) % lbList.length;
+    var item = lbList[lbIndex];
+    lbImg.setAttribute('src', item.src);
+    lbImg.setAttribute('alt', item.cap);
+    lbImg.classList.toggle('is-redacted', item.redacted);
+    if (lbCap) lbCap.textContent = item.cap + (lbList.length > 1 ? '  (' + (lbIndex + 1) + ' of ' + lbList.length + ')' : '');
+  }
+  function openViewer(fig) {
+    if (!lb || !fig) return;
+    var img = fig.querySelector('img');
+    lbList = collectGroup(fig.getAttribute('data-lightbox'));
+    if (!lbList.length || !img) return;
+    var src = img.getAttribute('src'), start = 0;
+    lbList.forEach(function (it, n) { if (it.src === src) start = n; });
+    showImage(start);
+    if (typeof lb.showModal === 'function') lb.showModal(); else lb.setAttribute('open', '');
+  }
+  document.addEventListener('click', function (e) {
+    var fig = e.target && e.target.closest ? e.target.closest('figure.shot[data-lightbox]') : null;
+    if (fig) openViewer(fig);
+  });
+  document.addEventListener('keydown', function (e) {
+    var fig = e.target && e.target.closest ? e.target.closest('figure.shot[data-lightbox]') : null;
+    if (fig && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openViewer(fig); }
+    if (lb && lb.hasAttribute('open')) {
+      if (e.key === 'ArrowRight') showImage(lbIndex + 1);
+      if (e.key === 'ArrowLeft') showImage(lbIndex - 1);
+    }
+  });
+  var lbClose = $('#lbClose'), lbPrev = $('#lbPrev'), lbNext = $('#lbNext');
+  if (lbClose) lbClose.addEventListener('click', function () { if (lb.close) lb.close(); else lb.removeAttribute('open'); });
+  if (lbPrev) lbPrev.addEventListener('click', function () { showImage(lbIndex - 1); });
+  if (lbNext) lbNext.addEventListener('click', function () { showImage(lbIndex + 1); });
+  if (lb) lb.addEventListener('click', function (e) { if (e.target === lb && lb.close) lb.close(); });
+
   /* ----------------------------- 10. Footer year ----------------------------- */
   var year = $('#year');
   if (year) year.textContent = new Date().getFullYear();

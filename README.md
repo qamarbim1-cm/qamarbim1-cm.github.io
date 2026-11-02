@@ -26,13 +26,54 @@ portfolio-website/
 ```
 
 ## Sections (in order)
-Hero with proof strip, Executive profile, How I govern project information (information delivery chain),
-Expertise (six capabilities), NEOM Highway 55 case study, Major infrastructure projects (Pakistan),
-Process improvement and automation, Credentials and education with platforms, Career timeline, CV and Contact.
+Hero (with a NEOM as-built photo behind it) and programme ribbon, Executive profile, How I govern project information (with COBie handover evidence),
+Expertise, NEOM Highway 55 case study (banner, design-to-as-built flow, outcomes, project evidence), Programme delivery (Diriyah Gate II, SILZ, AMAALA),
+Process improvement and automation, Credentials and education, Skills in action, Platforms and standards, Career timeline (with programme pictures), CV and Contact.
+
+## Add your project pictures (the site is built for them)
+The pages already point at your 21 pictures using the exact file names from your Google Drive folder "Claude AI". Until you upload them, every picture slot hides itself, so nothing looks broken.
+
+**How to add them**
+1. In Google Drive, right-click the folder **Claude AI**, choose **Download**, and unzip it.
+2. Make a new folder on your computer called `projects`. Put the four sub-folders **NEOM**, **Amala**, **Diriyah** and **SILZ** inside it. Keep every file name exactly as it is, including capital letters and spaces.
+3. On GitHub open your repository, go to the folders `assets` then `img`, click **Add file > Upload files**, drag in the whole `projects` folder, and click **Commit changes**.
+4. Wait two minutes and open your site in a private window.
+
+**Where each picture is used** (you can change any of this in `index.html`)
+
+| Picture | Where it appears |
+|---|---|
+| NEOM / AS BUILT .png | Hero background, programme ribbon, design-to-as-built flow, outcomes, timeline |
+| NEOM / C3-c3d.png, c3 as built.png | About, design-to-as-built flow |
+| NEOM / Neom Int.png | NEOM case study banner, outcomes, Skills in action |
+| NEOM / COBIE.png, COBIE 1.png | Handover evidence, outcomes, Skills in action (shown blurred, see below) |
+| NEOM / C3.png | Skills in action, project evidence |
+| NEOM / 02, C3-P1, ic-06, neom, NEOM_01, NEOM_02 | Project evidence gallery |
+| Diriyah / Diriyah_01, Diriyah_02 | Diriyah card, ribbon, timeline |
+| SILZ / SILZ Roundabout, SILZ _02 | SILZ card, ribbon, timeline |
+| Amala / Amala_01, 2Amala_01, Amala_Building_01, Amala_Building_02 | AMAALA card, ribbon, timeline |
+
+**Check each picture before you publish**
+- **Shrink them first.** Your 21 pictures total about 23 MB, and some are 2 to 3 MB each. Drag them into tinypng.com (free, 20 at a time) and download the smaller versions. File names stay the same.
+- **Privacy.** The two COBie pictures are shown **blurred on purpose**, because COBie sheets usually contain colleagues' names, emails and project codes. To show one clearly, blur those cells in the picture, replace the file, then remove the word `redacted` from that picture's tag in `index.html`.
+- **Permission.** NEOM, Diriyah, SILZ and AMAALA are client projects. Check with Al-Ayuni that you may show them publicly.
+- **Your own work only.** If any picture is a stock or AI-generated scenic image, not your own project picture, remove it. Recruiters notice, and it weakens everything else.
+- **AMAALA** is not on your CV. Add it there, or take the AMAALA tile and card out of `index.html`.
+- **Captions.** Captions were written from the file names only, because the pictures could not be viewed while building. Read each caption against its picture and correct any that do not match.
+
+
+## Add your Prime Engineering pictures
+The Pakistan projects section, the four project cards, a "Design evidence" row and the career timeline all have picture slots, waiting for files in `assets/img/projects/Prime/`.
+Use the exact file names listed in `assets/img/projects/Prime/README.md` (for example `Kashmir-Highway_01.png` and `Design_01.png`). Slots without a file stay hidden.
+Upload them the same way as the Saudi pictures: GitHub > `assets/img/projects` > Add file > Upload files. Compress them first at tinypng.com, and blur client names and title blocks on drawings.
+
+## Certificate pictures (already included)
+`assets/img/certs/` holds your PMP, CanBIM S4 and two BSI certificates, with certificate numbers and QR codes masked. They show in the "Verified credentials" row and open full-size when clicked.
+To add another certificate (for example SCE or Plannerly), save a cleaned picture in that folder and copy one of the four `cert-shot` figures in `index.html`.
 
 ## Before you publish: five checks
 1. **CV file.** `assets/cv/Raja_Qamar_Ilyas_CV.pdf` is your latest CV exactly as supplied. It still shows your phone number and the line "6 interchanges delivered". Correct the CV (4 interchanges, 6 road corridors, your new title) and remove the phone number if you do not want it public, then replace the file with the same name.
-2. **PMP date.** The site says valid through July 2030. The certificate in your portfolio PDF showed 12 July 2027. Confirm the PMI registry shows 2030.
+2. **PMP date.** Your new PMP certificate shows expiry 12 July 2030, which matches the site. Keep the certificate and the site in step when you renew.
 3. **Pakistan project figures.** The site uses the lengths you supplied (113, 89, 8.7 and 126 km). Your CV and your Prime employment letter show different figures for some of these projects. Make all three documents agree.
 4. **Autodesk credentials.** Add credential IDs or verification links so a recruiter can check them.
 5. **SCE registration** is shown as valid through March 2027. Renew it and update the date.
