@@ -268,10 +268,25 @@
 
 
   /* ----------------- 11. Project pictures: missing-file fallback + viewer ----------------- */
-  // A picture that fails to load is hidden, so a visitor never sees a broken image icon.
+  // Picture slots accept .png, .jpg, .jpeg or .webp with the same file name.
+  // If one extension fails, the next is tried; only when all fail is the slot hidden.
+  var EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp'];
   document.addEventListener('error', function (e) {
     var t = e.target;
     if (!t || t.tagName !== 'IMG') return;
+    var src = t.getAttribute('src') || '';
+    var m = src.match(/\.(png|jpg|jpeg|webp)$/i);
+    if (m && /assets\/img\/(projects|certs)\//.test(src)) {
+      var tried = (t.getAttribute('data-tried') || '').split(',').filter(Boolean);
+      tried.push(m[1].toLowerCase());
+      var next = null;
+      for (var i = 0; i < EXTENSIONS.length; i++) { if (tried.indexOf(EXTENSIONS[i]) === -1) { next = EXTENSIONS[i]; break; } }
+      if (next) {
+        t.setAttribute('data-tried', tried.join(','));
+        t.setAttribute('src', src.replace(/\.(png|jpg|jpeg|webp)$/i, '.' + next));
+        return;
+      }
+    }
     var holder = t.closest('.shot, .prog-tile');
     if (holder) holder.classList.add('is-missing');
   }, true);
